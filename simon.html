@@ -44,25 +44,29 @@
 
       const levels = 15
 
+      //Generar las teclas que el usuario va a tener que teclear en esta partida.
       let teclas = obtenerteclas(levels)
 
+      //Generar array con resultado de teclas
       function obtenerteclas(levels){
         return new Array(levels).fill(0).map(obtenerteclaaleatoria)
       }
 
+      //Generar Teclas Aleatorias
       function obtenerteclaaleatoria(){
         min = 65
         max = 90
         return Math.floor( (Math.random() * (max - min * 1)) + min )
       }
 
-
-      function getKeyDown(key){
-         return document.querySelector(`[data-key="${key}"]`)
+      //Obtener data-key de la tecla selecciona por el usuario
+      function getElementByKeyCode(keyCode){
+         return document.querySelector(`[data-key="${keyCode}"]`)
       }
      
-      function activate (key, opts = {}){
-        let el = getKeyDown(key)
+      //Activa la tecla seleccionada en el documento de la pantalla, anadiendole class     
+      function activate (keyCode, opts = {}){
+        let el = getElementByKeyCode(keyCode)
         el.classList.add('active')
         if (opts.success){
           el.classList.add('success')
@@ -72,6 +76,7 @@
         setTimeout(() => deactivate(el),500)
       }
 
+      //Inicializa el valor de la clase
       function deactivate(el){
         el.className = 'key'
       }
