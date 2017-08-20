@@ -45,7 +45,48 @@
       const niveles = 15
 
       //Generar las teclas que el usuario va a tener que teclear en esta partida.
-      let keys = generarTeclas(niveles)
+      let teclas = generarTeclas(niveles)
+
+      //Logica del Juego para primera ronda
+      function siguienteNivel(nivelActual){
+        //Supero los niveles
+        if (nivelActual == niveles){
+          return alert(`Ganaste!!!`)
+        }
+
+        //Nivel Actual
+        alert(`Nivel ${nivelActual + 1}`)
+
+        //Simon dice
+        for (let i=0; i <= nivelActual; i++){
+          setTimeout(() => activate(teclas[i]), 1000 * (i + 1))
+        }
+
+        //ahora vamos a capturar las teclas que marco el usuario
+        
+        let i = 0
+
+        window.addEventListener('keydown', onKeyDown)
+
+
+        function onKeyDown(ev){
+          if(ev.keyCode == teclas[i]){
+            activate(ev.keyCode, {success:true})
+            i++
+            if( i > nivelActual){
+              window.removeEventListener('keydown', onKeyDown)
+              setTimeout(() => siguienteNivel(i),1500)
+            }
+          } else{
+            activate(ev.keyCode, {fail:true})
+            window.removeEventListener('keydown', onKeyDown)
+            setTimeout(() => alert(`Perdiste :(`),500)
+          }
+        }
+      }
+
+      siguienteNivel(0)
+
 
       //Generar array con resultado de teclas
       function generarTeclas(niveles){
@@ -56,7 +97,7 @@
       function generarTeclaAleatorias(){
         min = 65
         max = 90
-        return Math.floor( (Math.random() * (max - min * 1)) + min )
+        return Math.floor((Math.random() * (max - min * 1)) + min )
       }
 
       //Obtener data-key de la tecla selecciona por el usuario
