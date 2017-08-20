@@ -42,25 +42,31 @@
     <script>
       // Aquí tu código
 
-      const niveles = 15
-      let keys = generarTeclas(niveles)
+      const levels = 15
 
-      function generarTeclas(niveles){
-        return new Array(niveles).fill(0).map(generarTeclaAleatoria)
+      let teclas = obtenerteclas(levels)
+
+      function obtenerteclas(levels){
+        return new Array(levels).fill(0).map(obtenerteclaaleatoria)
       }
 
-      function generarTeclaAleatoria(){
-        const min = 65
-        const max = 90
-        return Math.round(Math.random() * (max - min) + min)
+      function obtenerteclaaleatoria(){
+        min = 65
+        max = 90
+        return Math.floor( (Math.random() * (max - min * 1)) + min )
       }
 
-      function activate(keyCode, opts = {}){
-        const el = getElementByKeyCode(keyCode)
-        el.classList.add('active') //para agregar una clase al elemento del documento
+
+      function getKeyDown(key){
+         return document.querySelector(`[data-key="${key}"]`)
+      }
+     
+      function activate (key, opts = {}){
+        let el = getKeyDown(key)
+        el.classList.add('active')
         if (opts.success){
           el.classList.add('success')
-        } else if(opts.fail) {
+        } else if(opts.fail){
           el.classList.add('fail')
         }
         setTimeout(() => deactivate(el),500)
@@ -69,6 +75,8 @@
       function deactivate(el){
         el.className = 'key'
       }
+
+
 
     </script>
   </body>
