@@ -42,18 +42,18 @@
     <script>
       // Aquí tu código
 
-      const levels = 15
+      const niveles = 15
 
       //Generar las teclas que el usuario va a tener que teclear en esta partida.
-      let teclas = obtenerteclas(levels)
+      let keys = generarTeclas(niveles)
 
       //Generar array con resultado de teclas
-      function obtenerteclas(levels){
-        return new Array(levels).fill(0).map(obtenerteclaaleatoria)
+      function generarTeclas(niveles){
+        return new Array(niveles).fill(0).map(generarTeclaAleatorias)
       }
 
       //Generar Teclas Aleatorias
-      function obtenerteclaaleatoria(){
+      function generarTeclaAleatorias(){
         min = 65
         max = 90
         return Math.floor( (Math.random() * (max - min * 1)) + min )
